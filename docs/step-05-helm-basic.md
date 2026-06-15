@@ -107,16 +107,15 @@ Functions you'll call (all built into Helm):
 - **Why:** resources need release-specific names so two installs of the chart don't collide.
 
 #### 3. `movie-chart.labels` — the full label set
-- **Returns:** four lines of YAML labels:
-  - `app.kubernetes.io/name:` → `{{ include "movie-chart.name" . }}`
-  - `app.kubernetes.io/instance:` → `{{ .Release.Name }}`
-  - `app.kubernetes.io/managed-by:` → `{{ .Release.Service }}` (this is "Helm")
-  - `helm.sh/chart:` → `{{ printf "%s-%s" .Chart.Name .Chart.Version }}`
-- **Why:** these are the standard recommended Kubernetes labels; putting them on every object makes resources searchable and consistent.
+- **Returns:** three lines of YAML labels:
+  - `app:` → `{{ include "movie-chart.name" . }}`
+  - `release:` → `{{ .Release.Name }}`
+  - `chart:` → `{{ printf "%s-%s" .Chart.Name .Chart.Version }}`
+- **Why:** putting the same labels on every object makes the release's resources easy to find and group together.
 
 #### 4. `movie-chart.selectorLabels` — the stable subset
-- **Returns:** only the **first two** labels from #3 — `app.kubernetes.io/name` and `app.kubernetes.io/instance`. Nothing else.
-- **Why (important):** a Deployment's/StatefulSet's `selector` is **immutable** — you can't change it after creation. `helm.sh/chart` contains the chart *version*, which changes on every chart bump. If the version were in the selector, your next `helm upgrade` would try to change an immutable field and **fail**. So selectors get only the labels that never change.
+- **Returns:** only the **first two** labels from #3 — `app` and `release`. **Leave out `chart`.**
+- **Why (important):** a Deployment's/StatefulSet's `selector` is **immutable** — you can't change it after creation. The `chart` label contains the chart *version*, which changes on every chart bump. If the version were in the selector, your next `helm upgrade` would try to change an immutable field and **fail**. So selectors get only the labels that never change.
 
 #### 5. `movie-chart.mongoName` — the Mongo name
 - **Returns:** `<release>-mongo`, e.g. `demo-mongo`.
@@ -183,7 +182,7 @@ Requirements:
 Requirements:
 - Wrap the **entire file** in `{{- if .Values.mongo.enabled }}` … `{{- end }}`.
 - Name it `{{ include "movie-chart.mongoName" . }}`; make it headless (`clusterIP: None`).
-- Add `app.kubernetes.io/component: mongo` to **both** the labels and the selector, so this Service's selector doesn't collide with the app Service's selector (they'd otherwise share the same name+instance labels and grab each other's pods).
+- Add a `component: mongo` label to **both** the labels and the selector, so this Service's selector doesn't collide with the app Service's selector (they'd otherwise share the same app+release labels and grab each other's pods).
 - Port: `{{ .Values.mongo.port }}` → `targetPort: 27017`.
 
 *Reference answer: `solved/step-05/movie-chart/templates/mongo-service.yaml`.*
@@ -194,7 +193,7 @@ Requirements:
 
 Requirements:
 - Name and `serviceName` both = `{{ include "movie-chart.mongoName" . }}`; `replicas: 1`.
-- Same `app.kubernetes.io/component: mongo` label on metadata, selector, and pod template as in step I (same indentation rules as the Deployment).
+- Same `component: mongo` label on metadata, selector, and pod template as in step I (same indentation rules as the Deployment).
 - Container image `{{ .Values.mongo.image }}`, container port `27017`, volume mount at `/data/db`.
 - A `volumeClaimTemplates` entry with `accessModes: ["ReadWriteOnce"]` and `storage: {{ .Values.mongo.storage }}`.
 
