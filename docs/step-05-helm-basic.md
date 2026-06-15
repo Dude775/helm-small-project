@@ -159,6 +159,7 @@ Functions you'll call (all built into Helm):
 *Reference answer: `solved/step-05/movie-chart/templates/configmap.yaml`.*
 
 ## F. `templates/secret.yaml`
+[About the tpl function](https://austindewey.com/2021/02/22/using-the-helm-tpl-function-to-refer-values-in-values-files/)
 
 **Copy** your `k8s/secret.yaml`, then **adapt** the `Opaque` Secret so it's named `...-secret` and holds `MONGO_URI` under `stringData`:
 
