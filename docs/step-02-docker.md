@@ -4,7 +4,7 @@
 
 You are **not** given a `Dockerfile` and you are **not** given the commands. Work them out from the requirements and hints below. The only piece of code that is fixed is how the app is started inside the container — see the hint in the CMD section.
 
-> **Set up:** the provided app lives in `movie-api/` (unzip `movie-api.zip` if you don't have it). The `Dockerfile` and `.dockerignore` you write in this step go **inside `movie-api/`**, next to `requirements.txt` and `app/`, and you build from there. (Reference answer: `solved/step-02/`.)
+> **Set up:** the provided app lives in `movie-api/` (unzip `movie-api-v1.zip` if you don't have it — this step uses the **v1** app; v2 arrives in Step 04.5). The `Dockerfile` and `.dockerignore` you write in this step go **inside `movie-api/`**, next to `requirements.txt` and `app/`, and you build from there. Tag the image `:1.0`. (Reference answer: `solved/step-02/`.)
 
 ---
 

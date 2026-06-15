@@ -40,7 +40,7 @@ There is **no copy-paste chart here** — you build it from the requirements and
 | --- | --- | --- |
 | `replicaCount` | how many app pods | `2` |
 | `image.repository` | image name | `<dockerhub-user>/movie-api` |
-| `image.tag` | image version | `"1.0"` |
+| `image.tag` | image version | `"1.1"` (the v2 image from Step 04.5) |
 | `image.pullPolicy` | when to pull | `IfNotPresent` |
 | `service.type` | Service type | `ClusterIP` |
 | `service.port` | Service port | `80` |
@@ -51,7 +51,7 @@ There is **no copy-paste chart here** — you build it from the requirements and
 | `mongo.image` | Mongo image | `mongo:7` |
 | `mongo.storage` | PVC size | `1Gi` |
 | `mongo.port` | Mongo Service port | `27017` |
-| `extraEnv.LOG_LEVEL` | extra env vars → `env:` | `"info"` |
+| `extraEnv.LOG_LEVEL` | extra env vars → `env:` (the `LOG_LEVEL` you added in Step 04.5) | `"info"` |
 
 **Two things need special handling:**
 - **`secret.mongoUri` should contain `{{ .Release.Name }}` *inside the string*** — e.g. a value like `"mongodb://{{ .Release.Name }}-mongo:27017/movies"`. This makes the Mongo host follow the release name (`demo-mongo`, `prod-mongo`, …). A normal `{{ .Values.secret.mongoUri }}` would print that template text literally, so in **step F** you re-render it with `tpl`.
@@ -176,7 +176,7 @@ Functions you'll call (all built into Helm):
 - **Labels/selectors:** `metadata.labels` uses `movie-chart.labels`; both `selector.matchLabels` and the pod-template `metadata.labels` use `movie-chart.selectorLabels`. Mind the indentation: `nindent 4` for the metadata labels, `nindent 6` under `matchLabels`, `nindent 8` under the pod template.
 - **Image:** `"{{ .Values.image.repository }}:{{ .Values.image.tag }}"`, `imagePullPolicy: {{ .Values.image.pullPolicy }}`, `containerPort: {{ .Values.service.targetPort }}`.
 - **`envFrom`:** point at the templated ConfigMap (`...-config`) and Secret (`...-secret`) names.
-- **`extraEnv`:** render the `env:` block only if the map is non-empty — wrap it in `{{- with .Values.extraEnv }}` … `{{- end }}` and `range` inside, emitting `name`/`value` per key.
+- **`extraEnv`:** in Step 04.5 you added a hand-written `env:` block (`LOG_LEVEL`) to `k8s/deployment.yaml`. Here you **parameterize** it: instead of a fixed entry, render the block from `.Values.extraEnv` only if the map is non-empty — wrap it in `{{- with .Values.extraEnv }}` … `{{- end }}` and `range` inside, emitting `name`/`value` per key. The app (v2) reads `LOG_LEVEL` and adjusts its logging, so you can *see* the effect: set it to `DEBUG` and the pod logs more; set it to `WARNING` and the startup/`[db] connected` lines disappear.
 - **Probes:** liveness/readiness hit `/health` on `{{ .Values.service.targetPort }}`.
 
 *Reference answer: `solved/step-05/movie-chart/templates/deployment.yaml`.*
@@ -279,7 +279,7 @@ helm uninstall demo
 >
 > **Local image note (minikube/kind):** if you built the image locally instead of pushing to Docker Hub, add these to your `install`/`upgrade`/`template` commands so Kubernetes uses the local image:
 > ```bash
-> --set image.repository=movie-api --set image.tag=1.0 --set image.pullPolicy=Never
+> --set image.repository=movie-api --set image.tag=1.1 --set image.pullPolicy=Never
 > ```
 
 ---

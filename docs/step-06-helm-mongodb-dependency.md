@@ -77,7 +77,7 @@ mongodb://root:secretpass@{{ .Release.Name }}-mongodb:27017/movies?authSource=ad
 > **Troubleshooting — `helm repo update` / `helm dependency update` times out.**
 > The Bitnami index is large and sometimes rate-limited (`context deadline exceeded`). Retry `helm repo update bitnami`, or pin an exact version in `Chart.yaml` and use `helm dependency build`, or pull a single chart via OCI: `helm pull oci://registry-1.docker.io/bitnamicharts/mongodb --version <v>`.
 >
-> **Local image note (minikube/kind):** add `--set image.repository=movie-api --set image.tag=1.0 --set image.pullPolicy=Never` for *your* app image if you loaded it locally. (The `mongodb` legacy-image override lives in `values.yaml`, so you don't need to repeat it on the command line.)
+> **Local image note (minikube/kind):** add `--set image.repository=movie-api --set image.tag=1.1 --set image.pullPolicy=Never` for *your* app image if you loaded it locally. (The `mongodb` legacy-image override lives in `values.yaml`, so you don't need to repeat it on the command line.)
 
 ## E. Verify
 

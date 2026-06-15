@@ -26,6 +26,9 @@ It is configured **only** through environment variables:
 |----------|---------|---------|
 | `PORT` | `3000` | HTTP port |
 | `MONGO_URI` | `mongodb://localhost:27017/movies` | MongoDB connection string |
+| `LOG_LEVEL` | `info` | Logging verbosity (**v2 only** — see Step 04.5) |
+
+> **Two versions are provided.** `movie-api-v1.zip` is the original (reads `MONGO_URI` only) — used for Steps 01–04. `movie-api-v2.zip` adds `LOG_LEVEL`-driven logging and is introduced in **Step 04.5**, so the Helm `extraEnv` knob in Step 05 has a real effect. The `movie-api/` folder tracks the latest (v2).
 
 ```
 movie-api/
@@ -63,8 +66,9 @@ Do them in order. Each step builds on the previous one and adds a single new lay
 2. [Step 02 — Containerize with Docker](docs/step-02-docker.md)
 3. [Step 03 — Deploy to Kubernetes (manual manifests)](docs/step-03-k8s-manual.md)
 4. [Step 04 — MongoDB on Kubernetes](docs/step-04-k8s-mongodb.md)
-5. [Step 05 — Package as a Helm chart](docs/step-05-helm-basic.md)
-6. [Step 06 — MongoDB as a Helm dependency](docs/step-06-helm-mongodb-dependency.md)
+5. [Step 04.5 — Rebuild the app (v2) and update the manifests](docs/step-04.5-rebuild-logging.md)
+6. [Step 05 — Package as a Helm chart](docs/step-05-helm-basic.md)
+7. [Step 06 — MongoDB as a Helm dependency](docs/step-06-helm-mongodb-dependency.md)
 
 | Step | What you add | Key concept |
 |------|--------------|-------------|
@@ -72,5 +76,6 @@ Do them in order. Each step builds on the previous one and adds a single new lay
 | 02 | Dockerfile + image | build, push, service-name networking |
 | 03 | k8s manifests | Deployment/Service/ConfigMap/Secret, probes |
 | 04 | Mongo on k8s | StatefulSet + PVC + headless service |
+| 04.5 | Rebuild app (v2) | new image tag (`1.1`), `LOG_LEVEL` env var |
 | 05 | Helm chart | values, helpers, conditionals, upgrade/rollback |
 | 06 | Helm dependency | subcharts, Bitnami MongoDB |

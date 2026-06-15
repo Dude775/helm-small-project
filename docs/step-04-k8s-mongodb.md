@@ -76,4 +76,4 @@ Write the new manifests yourself from the hints. No copy-paste YAML. (Reference 
 
 ## Next
 
-→ [Step 05 — Package as a Helm chart](step-05-helm-basic.md)
+→ [Step 04.5 — Rebuild the app (v2) and update the manifests](step-04.5-rebuild-logging.md)
