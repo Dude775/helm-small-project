@@ -179,6 +179,8 @@ Functions you'll call (all built into Helm):
 - **`extraEnv`:** in Step 04.5 you added a hand-written `env:` block (`LOG_LEVEL`) to `k8s/deployment.yaml`. Here you **parameterize** it: instead of a fixed entry, render the block from `.Values.extraEnv` only if the map is non-empty — wrap it in `{{- with .Values.extraEnv }}` … `{{- end }}` and `range` inside, emitting `name`/`value` per key. The app (v2) reads `LOG_LEVEL` and adjusts its logging, so you can *see* the effect: set it to `DEBUG` and the pod logs more; set it to `WARNING` and the startup/`[db] connected` lines disappear.
 - **Probes:** liveness/readiness hit `/health` on `{{ .Values.service.targetPort }}`.
 
+> **Common mistake — `extraEnv` is the *values key*, not the container field.** It's tempting to write `extraEnv:` straight into the container spec. Kubernetes containers have no such field, so the API rejects the manifest (`unknown field "spec...extraEnv"` / schema validation error) — and because `helm install` applies *after* rendering, you only see it at apply time, not from `helm template`. The container field is **`env:`**; `.Values.extraEnv` is just the map you *read from* to build it. The pattern is `{{- with .Values.extraEnv }}` (guard) → `env:` (the real field) → `range` → `name`/`value`. Also `| quote` the value: an unquoted `value: 3000` is a YAML integer, and `env` values must be strings.
+
 *Reference answer: `solved/step-05/movie-chart/templates/deployment.yaml`.*
 
 ## H. `templates/service.yaml`
@@ -244,6 +246,12 @@ helm template demo .
 ```bash
 helm install demo .
 ```
+
+> **If the install fails (e.g. the `env:` mistake above) and a retry says `cannot re-use a name that is still in use`:** a failed first install leaves a release record behind, so plain `helm install demo .` won't reuse the name. You have two options:
+> - **Recover in place** — `helm upgrade --install demo .` (creates the release if missing, upgrades it if present). This is the idempotent install command worth using by default.
+> - **Start clean** — `helm uninstall demo`, then `helm install demo .` again.
+>
+> Check the state any time with `helm list -a` (the `-a`/`--all` flag also shows failed/pending releases that plain `helm list` hides).
 
 **4. Inspect** what was applied and the running pods:
 ```bash
