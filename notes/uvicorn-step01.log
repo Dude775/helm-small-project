@@ -6,3 +6,8 @@ INFO:movie-api:[db] connected to mongodb://localhost:27017/movies
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:3000 (Press CTRL+C to quit)
 INFO:     127.0.0.1:50510 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65330 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50367 - "POST /movies HTTP/1.1" 201 Created
+INFO:     127.0.0.1:50376 - "GET /movies HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55040 - "DELETE /movies/6a369cffeced77c682b35a95 HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:55050 - "GET /movies HTTP/1.1" 200 OK
