@@ -10,3 +10,8 @@
 - removed manual Kubernetes resources before Helm install
 - installed Helm release demo
 - verified rollout and rendered release manifest
+
+- upgraded release with replicaCount=3
+- upgraded release with values-prod.yaml
+- checked Helm history
+- rolled back demo release to revision 1

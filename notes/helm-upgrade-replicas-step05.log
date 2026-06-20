@@ -1,0 +1,18 @@
+Release "demo" has been upgraded. Happy Helming!
+NAME: demo
+LAST DEPLOYED: Sat Jun 20 17:42:43 2026
+NAMESPACE: default
+STATUS: deployed
+REVISION: 2
+DESCRIPTION: Upgrade complete
+TEST SUITE: None
+NOTES:
+Movie API installed.
+
+Port forward:
+kubectl port-forward svc/demo-movie-chart 8080:80
+
+Health:
+curl http://localhost:8080/health
+MongoDB mode: in-cluster Mongo enabled.
+Mongo service: demo-mongo
