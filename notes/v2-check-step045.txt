@@ -1,0 +1,9 @@
+movie-api/app/main.py:# LOG_LEVEL is injected via the chart's extraEnv (defaults to INFO). Setting it
+movie-api/app/main.py:LOG_LEVEL = os.getenv("LOG_LEVEL", "info").upper()
+movie-api/app/main.py:LOG_LEVEL = _LEVEL_ALIASES.get(LOG_LEVEL, LOG_LEVEL)
+movie-api/app/main.py:logging.basicConfig(level=getattr(logging, LOG_LEVEL, logging.INFO))
+movie-api/app/main.py:logger = logging.getLogger("movie-api")
+movie-api/app/main.py:    logger.info("starting up (log level=%s)", LOG_LEVEL)
+movie-api/app/main.py:    logger.debug("debug logging is enabled")
+movie-api/app/db.py:logger = logging.getLogger("movie-api")
+movie-api/app/db.py:    logger.info("[db] connected to %s", MONGO_URI)
