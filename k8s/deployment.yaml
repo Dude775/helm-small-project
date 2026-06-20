@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: movie-api
+  template:
+    metadata:
+      labels:
+        app: movie-api
+    spec:
+      containers:
+        - name: movie-api
+          image: idf775/movie-api:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: movie-api-config
+            - secretRef:
+                name: movie-api-secret
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
