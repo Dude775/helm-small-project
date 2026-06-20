@@ -1,0 +1,2 @@
+INFO:movie-api:starting up (log level=INFO)
+INFO:movie-api:[db] connected to mongodb://mongo:27017/movies
