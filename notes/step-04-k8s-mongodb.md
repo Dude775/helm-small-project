@@ -8,3 +8,9 @@
 - waited for MongoDB rollout
 - reapplied app manifests with in-cluster Mongo URI
 - restarted movie-api deployment
+
+- verified Mongo pod and PVC
+- checked app logs for mongodb://mongo connection
+- created/listed movie through Kubernetes Service
+- counted documents inside mongo-0
+- Step 04 completed

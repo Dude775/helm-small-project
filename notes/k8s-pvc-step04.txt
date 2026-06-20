@@ -1,0 +1,5 @@
+NAME                          STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-local-wp-mariadb-0       Bound    pvc-10ff1280-cd22-4b92-b3d3-a32f9ddf1f9d   8Gi        RWO            standard       <unset>                 6d5h
+data-my-wordpress-mariadb-0   Bound    pvc-f3221925-0548-4ce5-9ff4-915c4cc13ab8   8Gi        RWO            standard       <unset>                 6d6h
+local-wp-wordpress            Bound    pvc-bb2762c5-c600-4650-8339-89720922f2cf   10Gi       RWO            standard       <unset>                 6d5h
+mongo-data-mongo-0            Bound    pvc-cf205715-e1ae-41ca-aa05-2a672fa55786   1Gi        RWO            standard       <unset>                 2m15s

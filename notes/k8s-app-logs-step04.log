@@ -1,0 +1,33 @@
+INFO:     Started server process [7]
+INFO:     Waiting for application startup.
+INFO:movie-api:starting up (log level=INFO)
+INFO:movie-api:[db] connected to mongodb://mongo:27017/movies
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:3000 (Press CTRL+C to quit)
+INFO:     10.244.0.1:46490 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46498 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46514 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:55342 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:55350 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:55358 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42876 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42884 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42896 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41862 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41874 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41888 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48734 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48742 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48754 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:43546 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:43550 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:43564 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60500 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60506 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60518 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60988 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:32768 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:32772 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35352 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35364 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35370 - "GET /health HTTP/1.1" 200 OK
